@@ -1,0 +1,887 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- Your Main CSS -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+
+    <title>The Honest Shelf | Honest Book Reviews</title>
+  </head>
+
+  <body>
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <header>
+      <h1>The Honest Shelf</h1>
+
+      <h2>Honest reviews. Curious readers. Better conversations.</h2>
+    </header>
+
+    <!-- =========================================
+         NAVIGATION
+         ========================================= -->
+
+    <nav>
+      <button id="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+
+      <ul id="nav-links">
+        <li>
+          <a href="#home"> Home </a>
+        </li>
+
+        <li>
+          <a href="#reviews"> Reviews </a>
+        </li>
+
+        <li>
+          <a href="#about"> About </a>
+        </li>
+
+        <li>
+          <a href="#contact"> Contact </a>
+        </li>
+
+        {% if user.is_authenticated %}
+
+        <li>
+          <a href="{% url 'submit_review' %}"> Write a Review </a>
+        </li>
+
+        <li>
+          <a href="{% url 'logout' %}"> Log Out </a>
+        </li>
+
+        {% else %}
+
+        <li>
+          <a href="{% url 'login' %}"> Log In </a>
+        </li>
+
+        <li>
+          <a href="{% url 'signup' %}" class="nav-signup"> Sign Up </a>
+        </li>
+
+        {% endif %}
+      </ul>
+    </nav>
+
+    <!-- =========================================
+         TICKER
+         ========================================= -->
+
+    <div class="ticker">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <div class="page-content">
+      <main>
+        <!-- =========================================
+                 HERO
+                 ========================================= -->
+
+        <section id="home" class="hero">
+          <!-- ANIMATED BACKGROUND -->
+
+          <div class="hero-motion" aria-hidden="true">
+            <div class="motion-orb orb-one"></div>
+
+            <div class="motion-orb orb-two"></div>
+
+            <div class="motion-orb orb-three"></div>
+
+            <div class="paper-shape paper-one"></div>
+
+            <div class="paper-shape paper-two"></div>
+          </div>
+
+          <!-- HERO CONTENT -->
+
+          <div class="hero-inner">
+            <div class="hero-text">
+              <p class="hero-eyebrow">
+                A reading space for people who care about what they read
+              </p>
+
+              <h2>Read deeply. Choose wisely. Talk honestly.</h2>
+
+              <p class="hero-sub">
+                Real readers sharing honest takes on the books they finish,
+                question, recommend, and sometimes put down.
+              </p>
+
+              <a href="#reviews" class="hero-btn"> Explore the Reviews </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================
+                 REVIEWS
+                 ========================================= -->
+
+        <section id="reviews">
+          <h2>On the Shelf. In the Conversation.</h2>
+
+          <p class="section-intro">
+            Honest thoughts on the books we're reading, recommending,
+            questioning, and sometimes putting down.
+          </p>
+
+          {% if user.is_authenticated %}
+
+          <!-- SEARCH -->
+
+          <input
+            type="text"
+            id="review-search"
+            placeholder="Search reviews by title..."
+            class="search-input"
+          />
+
+          <!-- FILTER BUTTONS -->
+
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+
+            <button class="filter-btn" data-filter="christian">
+              Christian
+            </button>
+
+            <button class="filter-btn" data-filter="fiction">Fiction</button>
+
+            <button class="filter-btn" data-filter="self-help">
+              Self-Help
+            </button>
+          </div>
+
+          <!-- NO SEARCH RESULTS -->
+
+          <p id="no-results-message" style="display: none">
+            No reviews match your search. Try another title or category.
+          </p>
+
+          <!-- =========================================
+                         REVIEW 1
+                         ========================================= -->
+
+          <article data-category="christian">
+            <h3>Following the Path of the Eagle</h3>
+
+            <div class="review-text">
+              <p>
+                "Following the Path of the Eagle" is one of those books that
+                challenges you to rethink how you see yourself. Bishop David
+                Oyedepo uses the eagle as a powerful picture of what it means to
+                rise above mediocrity and pursue a life of purpose and
+                excellence.
+              </p>
+
+              <p>
+                The central message is simple but convicting: many of us settle
+                for less than what we were created for simply because we've
+                never been shown how to think differently.
+              </p>
+
+              <p>
+                What stood out most to me was how practical the book is. It's
+                not just spiritual encouragement — it walks through real
+                principles for breaking limiting mindsets, embracing vision, and
+                pursuing growth with discipline.
+              </p>
+
+              <p>
+                As someone still early in my own journey, many of the chapters
+                felt like they were speaking directly to where I am right now.
+              </p>
+            </div>
+
+            <button class="read-more" type="button">Read full review →</button>
+
+            <p class="review-meta">
+              Reviewed by
+              <strong>Kingsley</strong>
+            </p>
+
+            <p class="review-meta">
+              <time datetime="2026-01-01"> January 1, 2026 </time>
+            </p>
+
+            <figure>
+              <img
+                src="{% static 'images/path-of-the-eagle.png' %}"
+                alt="Following the Path of the Eagle by Bishop David Oyedepo"
+              />
+
+              <figcaption>
+                Following the Path of the Eagle by Bishop David Oyedepo
+              </figcaption>
+            </figure>
+
+            <!-- SPOILER -->
+
+            <details class="spoiler-details">
+              <summary>Spoilers ahead — reveal detailed discussion</summary>
+
+              <div class="spoiler-content">
+                <p>
+                  <em> I absolutely loved the ending. </em>
+                </p>
+              </div>
+            </details>
+
+            <blockquote>
+              "A captivating read that kept me hooked from start to finish."
+            </blockquote>
+          </article>
+
+          <!-- =========================================
+                         REVIEW 2
+                         ========================================= -->
+
+          <article data-category="fiction">
+            <h3>Book Title 2</h3>
+
+            <div class="review-text">
+              <p>Review content for Book Title 2...</p>
+            </div>
+
+            <button class="read-more" type="button">Read full review →</button>
+
+            <p class="review-meta">
+              Reviewed by
+              <strong>Kingsley</strong>
+            </p>
+
+            <p class="review-meta">
+              <time datetime="2026-01-02"> January 2, 2026 </time>
+            </p>
+
+            <figure>
+              <img
+                src="https://placehold.co/300x400?text=Book+2"
+                alt="Book Title 2 Cover"
+              />
+
+              <figcaption>Book Title 2 Cover</figcaption>
+            </figure>
+
+            <p>
+              <em> I found the character development to be exceptional. </em>
+            </p>
+
+            <blockquote>
+              "A well-crafted story with complex characters and a compelling
+              narrative."
+            </blockquote>
+          </article>
+
+          <!-- =========================================
+                         REVIEW 3
+                         ========================================= -->
+
+          <article data-category="self-help">
+            <h3>Atomic Habits</h3>
+
+            <div class="review-text">
+              <p>
+                "Atomic Habits" breaks down behavior change into something
+                genuinely actionable instead of vague motivation. James Clear's
+                core idea — that tiny, 1% improvements compound over time —
+                reframed how I think about discipline.
+              </p>
+
+              <p>
+                Instead of chasing big, dramatic goals, the book pushes you
+                toward small, repeatable systems.
+              </p>
+
+              <p>
+                What I appreciated most was how practical it is. Every chapter
+                ends with a clear takeaway you can apply immediately, not just
+                theory.
+              </p>
+
+              <p>
+                This is one I'll be returning to often as I build better study
+                and reading habits.
+              </p>
+            </div>
+
+            <button class="read-more" type="button">Read full review →</button>
+
+            <p class="review-meta">
+              Reviewed by
+              <strong>Kingsley</strong>
+            </p>
+
+            <p class="review-meta">
+              <time datetime="2026-01-05"> January 5, 2026 </time>
+            </p>
+
+            <figure>
+              <img
+                src="https://placehold.co/300x400?text=Atomic+Habits"
+                alt="Atomic Habits by James Clear"
+              />
+
+              <figcaption>Atomic Habits by James Clear</figcaption>
+            </figure>
+
+            <p>
+              <em>
+                The 1% better every day idea genuinely changed how I plan my
+                week.
+              </em>
+            </p>
+
+            <blockquote>
+              "You do not rise to the level of your goals. You fall to the level
+              of your systems."
+            </blockquote>
+          </article>
+
+          <!-- =========================================
+                         REVIEW 4
+                         ========================================= -->
+
+          <article data-category="fiction">
+            <h3>The Alchemist</h3>
+
+            <div class="review-text">
+              <p>
+                Paulo Coelho's "The Alchemist" follows a shepherd boy chasing a
+                recurring dream across the desert. Beneath the simple plot sits
+                a much bigger meditation on purpose, fear, and listening to your
+                own life.
+              </p>
+
+              <p>
+                It reads quickly, but the ideas linger far longer than the story
+                itself.
+              </p>
+
+              <p>
+                Some readers find the philosophy a little heavy-handed, and I
+                understand that critique. But for me, reading it at this stage
+                of life, as I figure out my own path, it landed exactly when I
+                needed it to.
+              </p>
+            </div>
+
+            <button class="read-more" type="button">Read full review →</button>
+
+            <p class="review-meta">
+              Reviewed by
+              <strong>Kingsley</strong>
+            </p>
+
+            <p class="review-meta">
+              <time datetime="2026-01-08"> January 8, 2026 </time>
+            </p>
+
+            <figure>
+              <img
+                src="https://placehold.co/300x400?text=The+Alchemist"
+                alt="The Alchemist by Paulo Coelho"
+              />
+
+              <figcaption>The Alchemist by Paulo Coelho</figcaption>
+            </figure>
+
+            <details class="spoiler-details">
+              <summary>Spoilers ahead — reveal detailed discussion</summary>
+
+              <div class="spoiler-content">
+                <p>
+                  <em>
+                    The ending brought the whole journey full circle in a way I
+                    didn't expect.
+                  </em>
+                </p>
+              </div>
+            </details>
+
+            <blockquote>
+              "When you want something, all the universe conspires in helping
+              you to achieve it."
+            </blockquote>
+          </article>
+
+          <!-- =========================================
+                         REVIEW 5
+                         ========================================= -->
+
+          <article data-category="christian">
+            <h3>Crazy Love</h3>
+
+            <div class="review-text">
+              <p>
+                Francis Chan's "Crazy Love" is a direct challenge to
+                comfortable, lukewarm faith. It doesn't try to be gentle about
+                it — the book confronts complacency head-on and asks hard
+                questions about what a genuinely surrendered life actually looks
+                like.
+              </p>
+
+              <p>
+                It's a short read, but a heavy one emotionally. I found myself
+                pausing often just to sit with certain chapters before
+                continuing.
+              </p>
+
+              <p>
+                Recommended if you're looking for something that will genuinely
+                convict rather than simply comfort.
+              </p>
+            </div>
+
+            <button class="read-more" type="button">Read full review →</button>
+
+            <p class="review-meta">
+              Reviewed by
+              <strong>Kingsley</strong>
+            </p>
+
+            <p class="review-meta">
+              <time datetime="2026-01-12"> January 12, 2026 </time>
+            </p>
+
+            <figure>
+              <img
+                src="https://placehold.co/300x400?text=Crazy+Love"
+                alt="Crazy Love by Francis Chan"
+              />
+
+              <figcaption>Crazy Love by Francis Chan</figcaption>
+            </figure>
+
+            <p>
+              <em>
+                The chapter on lukewarm faith is one I keep coming back to.
+              </em>
+            </p>
+
+            <blockquote>
+              "Imagine if we stopped giving God the leftovers of our time and
+              energy."
+            </blockquote>
+          </article>
+
+          <!-- =========================================
+     COMMUNITY REVIEWS
+     ========================================= -->
+
+          {% if reviews %}
+          <section class="community-reviews">
+            <p class="section-eyebrow">FROM OUR READERS</p>
+
+            <h3>What Readers Are Saying</h3>
+
+            <p class="community-reviews-intro">
+              Honest thoughts from members of The Honest Shelf.
+            </p>
+
+            {% for review in reviews %}
+
+            <article
+              class="community-review"
+              data-category="{{ review.category }}"
+            >
+              <div class="community-review-content">
+                <div class="community-review-heading">
+                  <div>
+                    <p class="review-category">
+                      {{ review.get_category_display }}
+                    </p>
+
+                    <h3>{{ review.title }}</h3>
+
+                    <p class="review-meta">
+                      By <strong>{{ review.author }}</strong>
+                    </p>
+                  </div>
+
+                  {% if review.cover_image %}
+                  <figure class="community-review-cover">
+                    <img
+                      src="{{ review.cover_image.url }}"
+                      alt="{{ review.title }} by {{ review.author }}"
+                    />
+                  </figure>
+                  {% endif %}
+                </div>
+
+                <div class="review-text">
+                  {{ review.review_text|linebreaks }}
+                </div>
+
+                <p class="review-meta">
+                  Reviewed by
+                  <strong>{{ review.reviewer.username }}</strong>
+                  · {{ review.published_date|date:"F j, Y" }}
+                </p>
+              </div>
+            </article>
+
+            {% endfor %}
+          </section>
+          {% endif %} {% else %}
+
+          <!-- =========================================
+                         LOCKED REVIEWS
+                         ========================================= -->
+
+          <div class="locked-content">
+            <p class="review-page-eyebrow">MEMBERS ONLY</p>
+
+            <h3>Your next good read might be waiting.</h3>
+
+            <p>
+              Create a free account to explore full reviews, search by title,
+              filter by category, and join the conversation around the books
+              you're reading.
+            </p>
+
+            <a href="{% url 'signup' %}" class="hero-btn"> Join The Shelf </a>
+
+            <a href="{% url 'login' %}" class="auth-switch-link">
+              Already a member? Log in
+            </a>
+          </div>
+
+          {% endif %}
+        </section>
+
+        <!-- =========================================
+                 ABOUT
+                 ========================================= -->
+
+        <section id="about">
+          <p class="section-eyebrow">THE HONEST SHELF</p>
+
+          <h2>We read it. You decide.</h2>
+
+          <p>
+            The Honest Shelf is a community reading journal built around one
+            simple idea:
+
+            <strong>
+              your time is valuable, and every book deserves an honest opinion.
+            </strong>
+          </p>
+
+          <p>
+            From Christian non-fiction and fiction to self-help and everything
+            in between, we read widely and tell you what we really think.
+          </p>
+
+          <p>
+            No inflated ratings. No pretending every book is a masterpiece. No
+            reviews written after reading the back cover.
+          </p>
+
+          <p>
+            Just real readers sharing what moved them, what challenged them,
+            what didn't work — and whether a book is worth your time.
+          </p>
+        </section>
+
+        <!-- =========================================
+                 QUOTES
+                 ========================================= -->
+
+        <section id="quotes">
+          <p class="section-eyebrow">FROM THE READING LIFE</p>
+
+          <h2>Words That Stay With You</h2>
+
+          <div class="quotes-strip">
+            <blockquote class="quote-card" id="quote1">
+              <p class="quote-text">
+                "The more that you read, the more things you will know."
+              </p>
+
+              <p class="quote-author">— Dr. Seuss</p>
+            </blockquote>
+
+            <blockquote class="quote-card" id="quote2">
+              <p class="quote-text">
+                "A reader lives a thousand lives before he dies."
+              </p>
+
+              <p class="quote-author">— George R.R. Martin</p>
+            </blockquote>
+
+            <blockquote class="quote-card" id="quote3">
+              <p class="quote-text">
+                "Once you learn to read, you will be forever free."
+              </p>
+
+              <p class="quote-author">— Frederick Douglass</p>
+            </blockquote>
+          </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+          <div class="contact-header">
+            <span class="section-eyebrow">GET IN TOUCH</span>
+
+            <h2>Have a Book to Talk About?</h2>
+
+            <div class="contact-line"></div>
+
+            <p>
+              Have a question, a recommendation, or a thought you'd like to
+              share? We're listening.
+            </p>
+          </div>
+
+          <div class="contact-form-wrapper">
+            <form id="contact-form" method="post">
+              {% csrf_token %}
+              <!-- NAME -->
+              <div class="form-group">
+                <label for="name">Your Name</label>
+
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <!-- EMAIL -->
+              <div class="form-group">
+                <label for="email">Your Email</label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+
+              <!-- SUBJECT -->
+              <div class="form-group">
+                <label for="topic">What would you like to talk about?</label>
+
+                <select id="topic" name="topic" required>
+                  <option value="" disabled selected>Select an option</option>
+
+                  <option value="book-recommendation">
+                    Book Recommendation
+                  </option>
+
+                  <option value="review-feedback">Review Feedback</option>
+
+                  <option value="website-feedback">Website Feedback</option>
+
+                  <option value="collaboration">Collaboration</option>
+
+                  <option value="general-question">General Question</option>
+                </select>
+              </div>
+
+              <!-- MESSAGE -->
+              <div class="form-group">
+                <label for="message">Your Message</label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us what's on your mind, what you're reading, or what we should read next..."
+                  required
+                ></textarea>
+              </div>
+
+              <!-- BUTTON -->
+              <button type="submit" id="contact-submit">
+                <span class="button-text">Send Message</span>
+                <span class="button-arrow">→</span>
+              </button>
+
+              <!-- BRAND MESSAGE -->
+              <p class="contact-note">
+                Every good conversation starts with a thought.
+              </p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <!-- =========================================
+             CURRENTLY READING
+             ========================================= -->
+
+      <aside>
+        <p class="section-eyebrow">ON OUR SHELF RIGHT NOW</p>
+
+        <h2>What We're Reading</h2>
+
+        <p class="sidebar-intro">
+          A few books currently open, bookmarked, and making their way through
+          our reading pile.
+        </p>
+
+        <ul id="currently-reading-list"></ul>
+      </aside>
+    </div>
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+    <footer>
+      <div class="footer-content">
+        <!-- BRAND -->
+
+        <div class="footer-column">
+          <h3>The Honest Shelf</h3>
+
+          <p class="footer-tagline">
+            Honest reviews. Curious readers. Better conversations.
+          </p>
+
+          <p>
+            A reader-first community for discovering worthwhile books, sharing
+            perspectives, and finding your next read.
+          </p>
+        </div>
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+          <h3>Explore</h3>
+
+          <ul>
+            <li>
+              <a href="#home"> Home </a>
+            </li>
+
+            <li>
+              <a href="#reviews"> Reviews </a>
+            </li>
+
+            <li>
+              <a href="#about"> About </a>
+            </li>
+
+            <li>
+              <a href="#contact"> Contact </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CATEGORIES -->
+
+        <div class="footer-column">
+          <h3>Browse by Genre</h3>
+
+          <ul>
+            <li>
+              <a href="#reviews" data-footer-filter="Christian"> Christian </a>
+            </li>
+
+            <li>
+              <a href="#reviews" data-footer-filter="Fiction"> Fiction </a>
+            </li>
+
+            <li>
+              <a href="#reviews" data-footer-filter="Self-Help"> Self-Help </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- SOCIAL -->
+
+        <div class="footer-column">
+          <h3>Follow the Shelf</h3>
+
+          <div class="footer-social">
+            <!-- WHATSAPP -->
+
+            <a
+              href="https://wa.me/2349055727921"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+            <!-- INSTAGRAM -->
+
+            <a
+              href="https://instagram.com/thehonestshelf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <!-- FACEBOOK -->
+
+            <a
+              href="https://facebook.com/thehonestshelf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER BOTTOM -->
+
+      <div class="footer-bottom">
+        <p>© 2026 The Honest Shelf. All rights reserved.</p>
+
+        <p>Read. Reflect. Review.</p>
+      </div>
+    </footer>
+
+    <!-- =========================================
+         EXISTING JAVASCRIPT
+         ========================================= -->
+
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>

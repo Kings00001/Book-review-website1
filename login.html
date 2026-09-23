@@ -1,0 +1,116 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+
+    <title>Log In - The Honest Shelf</title>
+  </head>
+
+  <body>
+    <div class="auth-page">
+      <div class="auth-visual">
+        <div class="auth-brand">THE HONEST SHELF</div>
+
+        <div class="auth-visual-content">
+          <p class="auth-eyebrow">WELCOME BACK</p>
+
+          <h1>
+            Good books.<br />
+            Honest conversations.
+          </h1>
+
+          <p>
+            Return to your reading space, discover thoughtful reviews, and
+            continue the conversation with fellow readers.
+          </p>
+        </div>
+
+        <div class="auth-quote">
+          <p>"There is no friend as loyal as a book."</p>
+
+          <span> — Ernest Hemingway </span>
+        </div>
+      </div>
+
+      <div class="auth-form-area">
+        <div class="auth-card">
+          <div class="mobile-brand">THE HONEST SHELF</div>
+
+          <p class="form-eyebrow">MEMBER LOGIN</p>
+
+          <h2>Welcome back.</h2>
+
+          <p class="auth-sub">
+            Log in to explore reviews and share your thoughts with the reading
+            community.
+          </p>
+
+          <form method="post">
+            {% csrf_token %} {% if form.non_field_errors %}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="form-group">
+              <label for="{{ form.username.id_for_label }}"> Username </label>
+
+              {{ form.username }} {% if form.username.errors %}
+              <div class="field-error">{{ form.username.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="{{ form.password.id_for_label }}"> Password </label>
+
+              <div class="password-field">
+                {{ form.password }}
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+
+              {% if form.password.errors %}
+              <div class="field-error">{{ form.password.errors }}</div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="auth-btn">Log In</button>
+          </form>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <a href="{% url 'signup' %}"> Create one </a>
+          </p>
+
+          <a href="{% url 'home' %}" class="back-home">
+            ← Back to The Honest Shelf
+          </a>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>

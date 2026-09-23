@@ -1,0 +1,183 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+
+    <title>Sign Up - The Honest Shelf</title>
+  </head>
+
+  <body>
+    <div class="auth-page">
+      <!-- LEFT EDITORIAL PANEL -->
+
+      <div class="auth-visual">
+        <div class="auth-brand">THE HONEST SHELF</div>
+
+        <div class="auth-visual-content">
+          <p class="auth-eyebrow">A COMMUNITY FOR READERS</p>
+
+          <h1>
+            Read deeply.<br />
+            Review honestly.
+          </h1>
+
+          <p>
+            Discover books worth your time, share what you think, and become
+            part of a community that values honest opinions.
+          </p>
+        </div>
+
+        <div class="auth-quote">
+          <p>"A reader lives a thousand lives before he dies."</p>
+
+          <span> — George R.R. Martin </span>
+        </div>
+      </div>
+
+      <!-- SIGNUP FORM -->
+
+      <div class="auth-form-area">
+        <div class="auth-card">
+          <div class="mobile-brand">THE HONEST SHELF</div>
+
+          <p class="form-eyebrow">JOIN THE COMMUNITY</p>
+
+          <h2>Create your account</h2>
+
+          <p class="auth-sub">
+            Start sharing your reviews and discovering your next great read.
+          </p>
+
+          <form method="post">
+            {% csrf_token %}
+
+            <!-- FORM ERRORS -->
+
+            {% if form.non_field_errors %}
+
+            <div class="form-errors">
+              {% for error in form.non_field_errors %}
+
+              <p>{{ error }}</p>
+
+              {% endfor %}
+            </div>
+
+            {% endif %}
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+              <label for="{{ form.username.id_for_label }}"> Username </label>
+
+              {{ form.username }} {% if form.username.errors %}
+
+              <div class="field-error">
+                {% for error in form.username.errors %}
+
+                <p>{{ error }}</p>
+
+                {% endfor %}
+              </div>
+
+              {% else %}
+
+              <small> Choose a username for your Honest Shelf profile. </small>
+
+              {% endif %}
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+              <label for="{{ form.password1.id_for_label }}"> Password </label>
+
+              <div class="password-field">
+                {{ form.password1 }}
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+
+              {% if form.password1.errors %}
+              <div class="field-error">
+                {% for error in form.password1.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% else %}
+              <small> At least 8 characters. Avoid common passwords. </small>
+              {% endif %}
+            </div>
+
+            <!-- PASSWORD CONFIRMATION -->
+            <div class="form-group">
+              <label for="{{ form.password2.id_for_label }}">
+                Confirm password
+              </label>
+
+              <div class="password-field">
+                {{ form.password2 }}
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+
+              {% if form.password2.errors %}
+              <div class="field-error">
+                {% for error in form.password2.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% else %}
+              <small> Enter the same password again. </small>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="auth-btn">Create Account</button>
+          </form>
+
+          <p class="auth-switch">
+            Already have an account?
+
+            <a href="{% url 'login' %}"> Log in </a>
+          </p>
+
+          <a href="{% url 'home' %}" class="back-home">
+            ← Back to The Honest Shelf
+          </a>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>
